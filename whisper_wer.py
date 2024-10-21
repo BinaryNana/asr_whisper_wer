@@ -21,7 +21,6 @@ class Record:
 
     @property
     def record_name(self) -> str:
-        # read the file name without extension as the record name
         return self.audio_path.split("/")[-1].split(".")[0]
 
     def get_transcript_content(self) -> str:
@@ -45,8 +44,6 @@ class Record:
 
 
 class Participant:
-    """Correspond to folder like Nut01"""
-
     def __init__(self, audio_folder: str, transcript_folder: str):
         self._audio_foler = audio_folder
         self._transcript_foler = transcript_folder
@@ -83,8 +80,6 @@ class Participant:
             )
         )
 
-        # we expect audio and transcript files share the same name
-        # Note: we only care about the participant that has both audio and transcript data
         self.records = [
             Record(
                 audio_record_path=os.path.join(self._audio_foler, f + ".wav"),
@@ -124,8 +119,6 @@ class Session:
         participant_audios = self.get_participant_audio_folders()
         participant_transcripts = self.get_participant_transcript_folders()
 
-        # we expect audio and transcript subfolders share the name name
-        # Note: we only care about the participant that has both audio and transcript data
         self.participants = [
             Participant(
                 audio_folder=os.path.join(self._audio_folder, d),
